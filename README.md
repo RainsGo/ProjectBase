@@ -16,3 +16,6 @@ add *.js to the folder: src/assets/js/<br/>
 ignore eslint check: add src/assets/js/*.js to .eslintignore<br/>
 modify webpack.base.conf.js for jquery<br/>
 add import $ from 'jquery' into App.vue
+
+### Add JQuery UI module: FullPage
+to see App.Vue
