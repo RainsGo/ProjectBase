@@ -1,24 +1,17 @@
 <template>
-    <div>
-        <a href="" id="githubLink"><img
-            style="position: fixed;z-index:99; top: 0; right: 0; border: 0;"
-            src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-
-        <div id="app">
-            <div class="section " id="section0"><h1>fullPage.js</h1></div>
-            <div class="section" id="section1">
-                <div class="slide" id="slide1"><h1>Slide Backgrounds</h1></div>
-                <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
-            </div>
-            <div class="section" id="section2"><h1>Lovely images <br/>for a lovely page</h1></div>
-            <div class="section" id="section3"><h1>One Image = One thousand words</h1></div>
+    <div id="app">
+        <div class="section " id="section0"><h1>First Page</h1></div>
+        <div class="section" id="section1">
+            <div class="slide" id="slide1"><h1>2 Page 1</h1></div>
+            <div class="slide" id="slide2"><h1>2 Page 2</h1></div>
         </div>
+        <div class="section" id="section2"><h1>3 Page</h1></div>
+        <div class="section" id="section3"><h1>4 Page</h1></div>
     </div>
 </template>
 
 <style type="text/css">
     @import "./style/jquery.fullPage.css";
-    @import "./style/examples.css";
 
     /* Style for our header texts
 	* --------------------------------------- */
@@ -89,27 +82,22 @@
     #infoMenu li a {
         color: #fff;
     }
-
-    /*
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
-    }
-    */
 </style>
 
 <script>
-    import $ from 'jquery'
-    import './assets/js/scrolloverflow'
     import './assets/js/jquery.fullPage'
-    import './assets/js/examples'
 
     export default {
         name: 'app',
-        ready: {}
+        mounted(){
+            this.$nextTick(function () {
+                $('#app').fullpage({
+                    verticalCentered: false,
+
+                    //to avoid problems with css3 transforms and fixed elements in Chrome, as detailed here: https://github.com/alvarotrigo/fullPage.js/issues/208
+                    css3:false
+                });
+            })
+        }
     }
 </script>
