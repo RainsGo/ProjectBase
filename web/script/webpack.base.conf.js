@@ -24,9 +24,11 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
-            'src': path.resolve(__dirname, '../src'),
-            'assets': path.resolve(__dirname, '../src/assets'),
-            'components': path.resolve(__dirname, '../src/components'),
+            'common': resolve('src/common'),
+            'components': resolve('src/components'),
+            'base': resolve('src/base'),
+            'api': resolve('src/api'),
+            'store': resolve('src/store'),
 
             // webpack 使用 jQuery，如果是自行下载的
             // 'jquery': path.resolve(__dirname, '../src/assets/libs/jquery/jquery.min'),
