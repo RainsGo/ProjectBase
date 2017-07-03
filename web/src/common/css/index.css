@@ -11,6 +11,7 @@ h1 {
 /* Centered texts in each section
 * --------------------------------------- */
 .section {
+    position: absolute;
     text-align: center;
 }
 

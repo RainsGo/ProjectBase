@@ -1,7 +1,7 @@
 <template>
     <div id="app" @touchmove.prevent>
-        <div class="section " id="section1">
-            <navbar></navbar>
+        <navbar></navbar>
+        <div id="pages">
             <keep-alive>
                 <router-view>
                     class="view"
@@ -11,26 +11,38 @@
                 </router-view>
             </keep-alive>
         </div>
-        <div class="section" id="section2"><h1>2 Page</h1></div>
-        <!--
-        <div class="section" id="section1">
-            <div class="slide" id="slide1"><h1>2 Page 1</h1></div>
-            <div class="slide" id="slide2"><h1>2 Page 2</h1></div>
+        <div id="background">
+            <div class="section " id="section1">
+            </div>
+            <div class="section" id="section2"><h1>2 Page</h1></div>
+            <!--
+            <div class="section" id="section1">
+                <div class="slide" id="slide1"><h1>2 Page 1</h1></div>
+                <div class="slide" id="slide2"><h1>2 Page 2</h1></div>
+            </div>
+            -->
+            <div class="section" id="section3"><h1>3 Page</h1></div>
+            <div class="section" id="section4"><h1>4 Page</h1></div>
         </div>
-        -->
-        <div class="section" id="section3"><h1>3 Page</h1></div>
-        <div class="section" id="section4"><h1>4 Page</h1></div>
     </div>
 </template>
 
 <style type="text/css">
-    @import "common/css/jquery.fullPage.css";
     @import "common/css/index.css";
+    @import "common/css/jquery.fullPage.css";
+
+    #pages{
+        position: absolute;
+        margin-top: 0px;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+    }
 </style>
 
 <script>
-    import 'common/js/jquery.fullPage'
-    import Navbar from 'components/navbar/navbar.vue'
+    import 'common/js/jquery.fullPage.debug'
+    import Navbar from 'components/navbar/navbar-bootstrapvue.vue'
 
     export default {
         name: 'app',
@@ -39,7 +51,7 @@
         },
         mounted(){
             this.$nextTick(function () {
-                $('#app').fullpage({
+                $('#background').fullpage({
                     verticalCentered: false,
 
                     //to avoid problems with css3 transforms and fixed elements in Chrome, as detailed here: https://github.com/alvarotrigo/fullPage.js/issues/208

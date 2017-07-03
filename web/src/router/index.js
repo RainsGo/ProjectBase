@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // 引用模板
-import Index from '@/components/index.vue'
+import Home from '@/components/home.vue'
 import Page1 from '@/components/test/page1.vue'
 import Page2 from '@/components/test/page2.vue'
 import Page3 from '@/components/test/page3.vue'
@@ -16,7 +16,7 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
-            component: Index
+            component: Home
         },
         {
             path: '/page1',

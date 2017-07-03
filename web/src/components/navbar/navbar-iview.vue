@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="navbar">
     <Menu mode="horizontal" :theme="theme1" active-name="1">
         <Menu-item name="1">
             <Icon type="ios-paper"></Icon>
@@ -29,18 +29,12 @@
             综合设置
         </Menu-item>
     </Menu>
-    <br>
-    <p>切换主题</p>
-    <Radio-group v-model="theme1">
-        <Radio label="light"></Radio>
-        <Radio label="dark"></Radio>
-        <Radio label="primary"></Radio>
-    </Radio-group>
     </div>
 </template>
 
 <script>
     export default {
+        name: 'navbar',
         data () {
             return {
                 theme1: 'dark'

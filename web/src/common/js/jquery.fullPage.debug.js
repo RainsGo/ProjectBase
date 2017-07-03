@@ -201,6 +201,7 @@
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints))
         var container = $(this)
         var windowsHeight = $window.height()
+        var windowsWidth = $window.width()
         var isResizing = false
         var isWindowFocused = true
         var lastScrolledDestiny
@@ -466,6 +467,7 @@
             isResizing = true
 
             windowsHeight = $window.height() // updating global var
+            windowsWidth = $window.width()
 
             $(SECTION_SEL).each(function () {
                 var slidesWrap = $(this).find(SLIDES_WRAPPER_SEL)
@@ -477,6 +479,7 @@
                 }
 
                 $(this).css('height', windowsHeight + 'px')
+                $(this).css('width', windowsWidth + 'px')
 
                 // resizing the scrolling divs
                 if (options.scrollOverflow) {
@@ -663,7 +666,7 @@
             console.log('prepareDom')
             container.css({
                 'height': '100%',
-                'position': 'relative'
+                'position': 'absolute'
             })
 
             // adding a class to recognize the container internally in the code
@@ -672,6 +675,7 @@
 
             // due to https://github.com/alvarotrigo/fullPage.js/issues/1502
             windowsHeight = $window.height()
+            windowsWidth = $window.width()
 
             container.removeClass(DESTROYED) // in case it was destroyed before initializing it again
 
@@ -773,6 +777,7 @@
             startingSection = $(SECTION_ACTIVE_SEL)
 
             section.css('height', windowsHeight + 'px')
+            section.css('width', windowsWidth + 'px')
 
             if (options.paddingTop) {
                 section.css('padding-top', options.paddingTop)
