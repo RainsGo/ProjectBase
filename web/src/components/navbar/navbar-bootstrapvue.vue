@@ -1,54 +1,99 @@
 <template>
-    <div id="navbar">
-        <b-navbar toggleable sticky="sticky-top" type="inverse">
+    <div id="navbar" toggleable sticky="sticky-top" class="r-navbar">
 
-            <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+        <b-link class="r-navbar-logo" to="/">
+            <img width="65px" src="../../common/images/logo-r.svg"></img>
+        </b-link>
 
-            <b-nav is-nav-bar class="ml-auto" >
-                <b-nav-item to="/page1">Page1</b-nav-item>
-                <b-nav-item to="/page2">Page2</b-nav-item>
-                <b-nav-item to="/page3">Page3</b-nav-item>
-            </b-nav>
+        <b-nav class="r-navbar-left">
+            <b-nav-item>
+                <i class=" fa fa-search"></i>
+            </b-nav-item>
+        </b-nav>
+
+        <b-nav class="r-navbar-right">
+            <b-nav-item to="/join">加入</b-nav-item>
+            <b-nav-item to="/login">登陆</b-nav-item>
+        </b-nav>
+
+        <b-nav is-nav class="r-navbar-items r-navbar-items-left">
+            <b-nav-item to="/page1">Page1</b-nav-item>
+            <b-nav-item to="/page2">Page2</b-nav-item>
+            <b-nav-item to="/page3">Page3</b-nav-item>
+        </b-nav>
 
 
-            <b-link is-nav-bar id="nav_collapse" to="/">
-                <h5>首页</h5>
-            </b-link>
-
-            <b-nav is-nav-bar>
-                <b-nav-item to="/page1">Page1</b-nav-item>
-                <b-nav-item to="/page2">Page2</b-nav-item>
-                <b-nav-item to="/page3">Page3</b-nav-item>
-            </b-nav>
-
-            <b-nav is-nav-bar class="ml-auto">
-
-                <!-- Navbar dropdowns -->
-                <b-nav-item-dropdown text="语言" right>
-                    <b-dropdown-item to="#">EN</b-dropdown-item>
-                    <b-dropdown-item to="#">ES</b-dropdown-item>
-                    <b-dropdown-item to="#">RU</b-dropdown-item>
-                    <b-dropdown-item to="#">FA</b-dropdown-item>
-                </b-nav-item-dropdown>
-
-                <b-nav-item-dropdown right>
-
-                    <!-- Using text slot -->
-                    <template slot="text">
-                        <span style="font-weight: bold;">用户</span>
-                    </template>
-
-                    <b-dropdown-item to="#">详细信息</b-dropdown-item>
-                    <b-dropdown-item to="#">登出</b-dropdown-item>
-                </b-nav-item-dropdown>
-
-            </b-nav>
-        </b-navbar>
+        <b-nav is-nav class="r-navbar-items r-navbar-items-right">
+            <b-nav-item to="/page4">Page4</b-nav-item>
+            <b-nav-item to="/page5">Page5</b-nav-item>
+            <b-nav-item to="/page6">Page6</b-nav-item>
+        </b-nav>
     </div>
 </template>
 
-<script type="text/css">
-</script>
+<style scoped lang="less">
+    .r-navbar {
+        top: 0;
+        width: 100%;
+        border: 1px solid transparent;
+        z-index: 1000;
+        height: 50px;
+        min-height: 50px;
+        margin-bottom: 20px;
+        position: fixed;
+        background: rgba(0, 0, 0, 0.6);
+        transition: background(.5s);
+        transform: translateZ(0px);
+    }
+
+    .r-navbar-logo {
+        position: absolute;
+        left: 50%;
+        width: 65px;
+        margin: 10px 0px 0px -32.5px;
+    }
+
+    .r-navbar-left {
+        position: relative;
+        float: left !important;
+        font-size: 14px;
+        padding: 0;
+        margin: 7px 0px 0px 0px;
+    }
+
+    .r-navbar-right {
+        position: relative;
+        float: right !important;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0;
+        margin: 7px 0px 0px 0px;
+    }
+
+    .r-navbar-items {
+        font-size: 14px;
+        color: black;
+        padding: 0;
+        margin: 7px 0px 0px 0px;
+    }
+
+    .r-navbar-items-left {
+        position: absolute;
+        right: 50%;
+        margin-right: 40px;
+    }
+
+    .r-navbar-items-right {
+        position: absolute;
+        left: 50%;
+        margin-left: 40px;
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        border-color: transparent;
+    }
+</style>
 
 <script>
     export default {

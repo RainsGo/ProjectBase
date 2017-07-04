@@ -15,7 +15,7 @@ import App from './App.vue'
 import router from './router'
 
 // 引入vuex
-// import store from './store'
+import store from './store/index.js'
 
 // 引入bootstrap样式
 import 'bootstrap/dist/css/bootstrap.css'
@@ -24,12 +24,15 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // 引入iView样式
 import 'iview/dist/styles/iview.css'
 
+// 引入fonts
+import 'common/fonts/font-awesome/css/font-awesome.css'
+
 Vue.use(BootstrapVue)
 Vue.use(iView)
 
 new Vue({
     el: '#app',
     router,
-    // store,
+    store,
     render: h => h(App)
 })
