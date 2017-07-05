@@ -103,7 +103,7 @@
 <script>
     // 引用Color组件
     import Color from 'color-js';
-    import TWEEN from 'tween';
+    import TWEEN from '@tweenjs/tween.js';
 
     export default {
         name: 'navbar',
@@ -115,7 +115,7 @@
                     red: 0,
                     green: 0,
                     blue: 0,
-                    alpha: 0
+                    alpha: 0.6
                 },
                 colorT: {
                     red: 0,
@@ -127,9 +127,15 @@
                     red: 0,
                     green: 0,
                     blue: 0,
-                    alpha: 0.9
+                    alpha: 0.6
                 },
-                colorTarget: {}
+                tweenedColor: {
+                    red: 0,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0.6
+                },
+                tweenedTimeMS: 500
             }
         },
         created: function () {
@@ -138,13 +144,9 @@
         },
         components: {},
         methods: {
-            updateColor: function (color) {
-              this.color = color //new Color(this.colorQuery).toARGB();
-            },
             onMouseOver(event){
                 console.log("onMouseOver: ", this.isInNavbar)
                 this.isInNavbar = true;
-                //this.showBackground = 'rgba(0,0,0,0.6)'
             },
             onMouseMove(){
                 console.log("onMouseMove")
@@ -152,50 +154,49 @@
             onMouseOut(){
                 console.log("onMouseOut: ", this.isInNavbar)
                 this.isInNavbar = false;
-                //this.showBackground = 'rgba(0,0,0,0)'
             },
             onMouseUp(){
                 console.log("onMouseUp")
             },
             onMouseDown: function(event){
                 console.log("onMouseDown: ")
-                this.showBackground = false
             }
         },
         watch: {
             color: function () {
-                console.log("watch ==> colorTarget: ", this.colorTarget)
-                let animationFrame
+                console.log("watch ==> color: ", this.color)
+                console.log("watch ==> tweenedColor: ", this.tweenedColor)
+                var animationFrame
                 function animate (time) {
                     TWEEN.update(time)
                     animationFrame = requestAnimationFrame(animate)
                 }
-                new TWEEN.Tween(this.colorTarget)
-                    .to(this.color, 750)
+                new TWEEN.Tween(this.tweenedColor)
+                    .to(this.color, this.tweenedTimeMS)
                     .onComplete(function () {
-                        console.log("watch ==> colorTarget: ", this.colorTarget)
+                        console.log("onComplete: ", this.tweenedColor)
                         cancelAnimationFrame(animationFrame)
                     })
                     .start()
                 animationFrame = requestAnimationFrame(animate)
             },
             isInNavbar: function (newVal, oldVal) {
-                console.log("watch ==> isInNavbar: ", this.isInNavbar)
-                if(this.isInNavbar){
-                    this.updateColor(this.colorF);
+                console.log("watch ==> isInNavbar: ", newVal)
+                if(newVal){
+                    this.color = this.colorF;
                 }else{
-                    this.updateColor(this.colorT);
+                    this.color = this.colorT;
                 }
             }
         },
         computed: {
             tweenedCSSColor: function () {
-                console.log("computed ==> tweenedCSSColor: ", this.colorTarget)
+                console.log("computed ==> tweenedCSSColor: ", this.tweenedColor)
                 return new Color({
-                    red: this.colorTarget.red,
-                    green: this.colorTarget.green,
-                    blue: this.colorTarget.blue,
-                    alpha: this.colorTarget.alpha
+                    red: this.tweenedColor.red,
+                    green: this.tweenedColor.green,
+                    blue: this.tweenedColor.blue,
+                    alpha: this.tweenedColor.alpha
                 }).toCSS()
             }
         },
