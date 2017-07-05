@@ -1,5 +1,8 @@
 <template>
-    <div id="navbar" toggleable sticky="sticky-top" class="r-navbar">
+    <div id="navbar" class="r-navbar" sticky="sticky-top"
+         v-on:mouseover="onMouseOver($event)"
+         v-on:mouseout="onMouseOut($event)"
+         v-bind:style="{background: tweenedCSSColor}" >
 
         <b-link class="r-navbar-logo" to="/">
             <img width="65px" src="../../common/images/logo-r.svg"></img>
@@ -32,6 +35,8 @@
 </template>
 
 <style scoped lang="less">
+    @colorBg: #000;
+
     .r-navbar {
         top: 0;
         width: 100%;
@@ -41,7 +46,7 @@
         min-height: 50px;
         margin-bottom: 20px;
         position: fixed;
-        background: rgba(0, 0, 0, 0.6);
+        // background: fade(@colorBg, 50%);
         transition: background(.5s);
         transform: translateZ(0px);
     }
@@ -96,15 +101,106 @@
 </style>
 
 <script>
+    // 引用Color组件
+    import Color from 'color-js';
+    import TWEEN from 'tween';
+
     export default {
         name: 'navbar',
-        methods: {},
+        data() {
+            return {
+                isInNavbar: false,
+                colorQuery: '',
+                color: {
+                    red: 0,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0
+                },
+                colorT: {
+                    red: 0,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0
+                },
+                colorF: {
+                    red: 0,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0.9
+                },
+                colorTarget: {}
+            }
+        },
+        created: function () {
+            this.tweenedColor = Object.assign({}, this.color)
+            console.log('created: ', this.tweenedColor)
+        },
         components: {},
+        methods: {
+            updateColor: function (color) {
+              this.color = color //new Color(this.colorQuery).toARGB();
+            },
+            onMouseOver(event){
+                console.log("onMouseOver: ", this.isInNavbar)
+                this.isInNavbar = true;
+                //this.showBackground = 'rgba(0,0,0,0.6)'
+            },
+            onMouseMove(){
+                console.log("onMouseMove")
+            },
+            onMouseOut(){
+                console.log("onMouseOut: ", this.isInNavbar)
+                this.isInNavbar = false;
+                //this.showBackground = 'rgba(0,0,0,0)'
+            },
+            onMouseUp(){
+                console.log("onMouseUp")
+            },
+            onMouseDown: function(event){
+                console.log("onMouseDown: ")
+                this.showBackground = false
+            }
+        },
+        watch: {
+            color: function () {
+                console.log("watch ==> colorTarget: ", this.colorTarget)
+                let animationFrame
+                function animate (time) {
+                    TWEEN.update(time)
+                    animationFrame = requestAnimationFrame(animate)
+                }
+                new TWEEN.Tween(this.colorTarget)
+                    .to(this.color, 750)
+                    .onComplete(function () {
+                        console.log("watch ==> colorTarget: ", this.colorTarget)
+                        cancelAnimationFrame(animationFrame)
+                    })
+                    .start()
+                animationFrame = requestAnimationFrame(animate)
+            },
+            isInNavbar: function (newVal, oldVal) {
+                console.log("watch ==> isInNavbar: ", this.isInNavbar)
+                if(this.isInNavbar){
+                    this.updateColor(this.colorF);
+                }else{
+                    this.updateColor(this.colorT);
+                }
+            }
+        },
+        computed: {
+            tweenedCSSColor: function () {
+                console.log("computed ==> tweenedCSSColor: ", this.colorTarget)
+                return new Color({
+                    red: this.colorTarget.red,
+                    green: this.colorTarget.green,
+                    blue: this.colorTarget.blue,
+                    alpha: this.colorTarget.alpha
+                }).toCSS()
+            }
+        },
         beforeCreate() {
             console.log('beforeCreate')
-        },
-        created() {
-            console.log('created')
         },
         beforeMount() {
             console.log('beforeMount')

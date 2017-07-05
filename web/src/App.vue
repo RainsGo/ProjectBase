@@ -3,12 +3,14 @@
         <navbar></navbar>
         <div id="pages">
             <keep-alive>
-                <router-view>
-                    class="view"
-                    keep-alive
-                    transition
-                    transition-mode="out-in">
-                </router-view>
+                <transition name="fade" mode="out-in">
+                    <router-view>
+                        class="view"
+                        keep-alive
+                        transition
+                        transition-mode="out-in">
+                    </router-view>
+                </transition>
             </keep-alive>
         </div>
         <div id="background">
@@ -31,7 +33,7 @@
     @import "common/css/index.css";
     @import "common/css/jquery.fullPage.css";
 
-    #pages{
+    #pages {
         position: absolute;
         margin-top: 0px;
         height: 100%;
