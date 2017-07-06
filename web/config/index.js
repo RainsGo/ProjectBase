@@ -30,7 +30,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {// <-----7.change
       '/api/**': 'http://localhost:8081'//代理前台/api开头的请求，代理到8080端口，spring boot的访问端口
-      },
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

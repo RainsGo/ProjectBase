@@ -4,16 +4,16 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // 引用模板
-import Home from '@/components/home.vue'
-import Join from '@/components/login/join.vue'
-import Login from '@/components/login/login.vue'
-import Page1 from '@/components/test/page1.vue'
-import Page2 from '@/components/test/page2.vue'
-import Page3 from '@/components/test/page3.vue'
-import Page4 from '@/components/test/page4.vue'
-import Page5 from '@/components/test/page5.vue'
-import Page6 from '@/components/test/page6.vue'
-import NotFound from '@/components/error/notFound.vue'
+import Home from 'components/home/home.vue'
+import Join from 'components/login/join.vue'
+import Login from 'components/login/login.vue'
+import Page1 from 'components/test/page1.vue'
+import Page2 from 'components/test/page2.vue'
+import Page3 from 'components/test/page3.vue'
+import Page4 from 'components/test/page4.vue'
+import Page5 from 'components/test/page5.vue'
+import Page6 from 'components/test/page6.vue'
+import NotFound from 'components/error/notFound.vue'
 
 // 配置路由
 export default new VueRouter({

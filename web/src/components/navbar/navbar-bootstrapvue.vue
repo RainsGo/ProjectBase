@@ -2,9 +2,10 @@
     <div id="navbar" class="r-navbar" sticky="sticky-top"
          v-on:mouseover="onMouseOver($event)"
          v-on:mouseout="onMouseOut($event)"
-         v-bind:style="{background: tweenedCSSColor}" >
+         v-bind:style="{background: updateNavbarBgColor}">
 
-        <b-link class="r-navbar-logo" to="/">
+        <b-link class="r-navbar-logo" to="/"
+                v-bind:style="{display: updateDisplayLogo}">
             <img width="65px" src="../../common/images/logo-r.svg"></img>
         </b-link>
 
@@ -19,14 +20,16 @@
             <b-nav-item to="/login">登陆</b-nav-item>
         </b-nav>
 
-        <b-nav is-nav class="r-navbar-items r-navbar-items-left">
+        <b-nav is-nav class="r-navbar-items r-navbar-items-left"
+               v-bind:style="{'margin-right': updateItemsMargin}">
             <b-nav-item to="/page1">Page1</b-nav-item>
             <b-nav-item to="/page2">Page2</b-nav-item>
             <b-nav-item to="/page3">Page3</b-nav-item>
         </b-nav>
 
 
-        <b-nav is-nav class="r-navbar-items r-navbar-items-right">
+        <b-nav is-nav class="r-navbar-items r-navbar-items-right"
+               v-bind:style="{'margin-left': updateItemsMargin}">
             <b-nav-item to="/page4">Page4</b-nav-item>
             <b-nav-item to="/page5">Page5</b-nav-item>
             <b-nav-item to="/page6">Page6</b-nav-item>
@@ -35,7 +38,6 @@
 </template>
 
 <style scoped lang="less">
-    @colorBg: #000;
 
     .r-navbar {
         top: 0;
@@ -46,9 +48,6 @@
         min-height: 50px;
         margin-bottom: 20px;
         position: fixed;
-        // background: fade(@colorBg, 50%);
-        transition: background(.5s);
-        transform: translateZ(0px);
     }
 
     .r-navbar-logo {
@@ -85,13 +84,13 @@
     .r-navbar-items-left {
         position: absolute;
         right: 50%;
-        margin-right: 40px;
+        //margin-right: 40px;
     }
 
     .r-navbar-items-right {
         position: absolute;
         left: 50%;
-        margin-left: 40px;
+        //margin-left: 40px;
     }
 
     .btn-secondary {
@@ -103,33 +102,24 @@
 <script>
     // 引用Color组件
     import Color from 'color-js';
-    import TWEEN from '@tweenjs/tween.js';
+    import {actionTweenedColor, actionTweenedNumber} from 'api/animate.js'
 
     export default {
         name: 'navbar',
         data() {
             return {
-                isInNavbar: false,
-                colorQuery: '',
+                isRouteHome: false,
+                isMouseOnNavbar: false,
+                valueMarginItems: 0,
+                valueMarginObject:{number: 0},
+                navbarBgAlpha: 0,
                 color: {
-                    red: 0,
-                    green: 0,
-                    blue: 0,
-                    alpha: 0.6
-                },
-                colorT: {
                     red: 0,
                     green: 0,
                     blue: 0,
                     alpha: 0
                 },
-                colorF: {
-                    red: 0,
-                    green: 0,
-                    blue: 0,
-                    alpha: 0.6
-                },
-                tweenedColor: {
+                navbarBgColor: {
                     red: 0,
                     green: 0,
                     blue: 0,
@@ -138,94 +128,92 @@
                 tweenedTimeMS: 500
             }
         },
-        created: function () {
-            this.tweenedColor = Object.assign({}, this.color)
-            console.log('created: ', this.tweenedColor)
-        },
         components: {},
         methods: {
             onMouseOver(event){
-                console.log("onMouseOver: ", this.isInNavbar)
-                this.isInNavbar = true;
-            },
-            onMouseMove(){
-                console.log("onMouseMove")
+                // console.log("[navbar] onMouseOver: ", this.isMouseOnNavbar)
+                this.isMouseOnNavbar = true;
             },
             onMouseOut(){
-                console.log("onMouseOut: ", this.isInNavbar)
-                this.isInNavbar = false;
+                // console.log("[navbar] onMouseOut: ", this.isMouseOnNavbar)
+                this.isMouseOnNavbar = false;
             },
-            onMouseUp(){
-                console.log("onMouseUp")
-            },
-            onMouseDown: function(event){
-                console.log("onMouseDown: ")
-            }
         },
         watch: {
-            color: function () {
-                console.log("watch ==> color: ", this.color)
-                console.log("watch ==> tweenedColor: ", this.tweenedColor)
-                var animationFrame
-                function animate (time) {
-                    TWEEN.update(time)
-                    animationFrame = requestAnimationFrame(animate)
-                }
-                new TWEEN.Tween(this.tweenedColor)
-                    .to(this.color, this.tweenedTimeMS)
-                    .onComplete(function () {
-                        console.log("onComplete: ", this.tweenedColor)
-                        cancelAnimationFrame(animationFrame)
-                    })
-                    .start()
-                animationFrame = requestAnimationFrame(animate)
-            },
-            isInNavbar: function (newVal, oldVal) {
-                console.log("watch ==> isInNavbar: ", newVal)
-                if(newVal){
-                    this.color = this.colorF;
+            $route: function () {
+                console.log("[navbar] $route: ", this.$route)
+                if(this.$route.path === "/"){
+                    this.isRouteHome = true;
+                    this.valueMarginItems = 0;
                 }else{
-                    this.color = this.colorT;
+                    this.isRouteHome = false;
+                    this.valueMarginItems = 40;
                 }
+            },
+            navbarBgAlpha: function () {
+                this.color.alpha = this.navbarBgAlpha;
+                actionTweenedColor(this.navbarBgColor, this.color, this.tweenedTimeMS);
+            },
+            isMouseOnNavbar: function (newVal, oldVal) {
+                if (newVal) {
+                    this.navbarBgAlpha = 0.6;
+                } else {
+                    this.navbarBgAlpha = 0;
+                }
+            },
+            valueMarginItems: function (newValue, oldValue) {
+                // console.log('[navbar] valueMarginItems: ', newValue, oldValue)
+                actionTweenedNumber(this.valueMarginObject, newValue, oldValue, this.tweenedTimeMS)
             }
         },
         computed: {
-            tweenedCSSColor: function () {
-                console.log("computed ==> tweenedCSSColor: ", this.tweenedColor)
-                return new Color({
-                    red: this.tweenedColor.red,
-                    green: this.tweenedColor.green,
-                    blue: this.tweenedColor.blue,
-                    alpha: this.tweenedColor.alpha
-                }).toCSS()
+            updateNavbarBgColor: function () {
+                return new Color(this.navbarBgColor).toCSS()
+            },
+            updateDisplayLogo: function () {
+                console.log('[navbar] updateDisplayLogo: ', this.isRouteHome)
+                if(this.isRouteHome){
+                    return 'none'
+                }else{
+                    return 'inline-block'
+                }
+            },
+            updateItemsMargin: function () {
+                console.log('[navbar] updateItemsMargin: ', "" + this.valueMarginObject.number + "px")
+                return "" + this.valueMarginObject.number + "px"
             }
         },
         beforeCreate() {
-            console.log('beforeCreate')
+            //console.log('[navbar] beforeCreate')
+        },
+        created: function () {
+            //console.log('[navbar] created')
+            //this.navbarBgColor = Object.assign({}, this.color)
         },
         beforeMount() {
-            console.log('beforeMount')
+            //console.log('[navbar] beforeMount')
         },
         mounted() {
-            console.log('mounted')
+            console.log('[navbar] mounted')
+            this.isRouteHome = true;
         },
         beforeUpdate() {
-            console.log('beforeUpdate')
+            //console.log('[navbar] beforeUpdate')
         },
         updated() {
-            console.log('updated')
+            //console.log('[navbar] updated')
         },
         activated() {
-            console.log('activated')
+            //console.log('[navbar] activated')
         },
         deactivated() {
-            console.log('deactivated')
+            //console.log('[navbar] deactivated')
         },
         beforeDestroy()  {
-            console.log('beforeDestroy')
+            //console.log('[navbar] beforeDestroy')
         },
         destroyed() {
-            console.log('destroyed')
+            //console.log('[navbar] destroyed')
         }
     }
 </script>

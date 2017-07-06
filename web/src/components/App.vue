@@ -30,8 +30,8 @@
 </template>
 
 <style type="text/css">
-    @import "common/css/index.css";
-    @import "common/css/jquery.fullPage.css";
+    @import "../common/css/index.css";
+    @import "../common/css/jquery.fullPage.css";
 
     #pages {
         position: absolute;
@@ -42,8 +42,8 @@
     }
 </style>
 
-<script>
-    import 'common/js/jquery.fullPage.debug'
+<script type="text/ecmascript-6">
+    import 'common/js/jquery.fullPage'
     import Navbar from 'components/navbar/navbar-bootstrapvue.vue'
 
     export default {

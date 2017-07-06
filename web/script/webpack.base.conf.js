@@ -10,7 +10,7 @@ function resolve(dir) {
 
 module.exports = {
     entry: {
-        app: './src/main.js'
+        app: resolve('src/main.js')
     },
     output: {
         path: config.build.assetsRoot,
@@ -24,10 +24,11 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
+            'api': resolve('src/api'),
+            'base': resolve('src/base'),
             'common': resolve('src/common'),
             'components': resolve('src/components'),
-            'base': resolve('src/base'),
-            'api': resolve('src/api'),
+            'router': resolve('src/router'),
             'store': resolve('src/store'),
 
             // webpack 使用 jQuery，如果是自行下载的

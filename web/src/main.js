@@ -9,13 +9,13 @@ import BootstrapVue from 'bootstrap-vue'
 import iView from 'iview'
 
 // 引用App主入口
-import App from './App.vue'
+import App from 'components/App.vue'
 
 // 引用路由配置文件
-import router from './router'
+import router from 'router/index.js'
 
 // 引入vuex
-import store from './store/index.js'
+import store from 'store/index.js'
 
 // 引入bootstrap样式
 import 'bootstrap/dist/css/bootstrap.css'
