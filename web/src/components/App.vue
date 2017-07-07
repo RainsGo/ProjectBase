@@ -1,5 +1,5 @@
 <template>
-    <div id="app" @touchmove.prevent>
+    <div id="app">
         <navbar></navbar>
         <div id="pages">
             <keep-alive>
@@ -53,6 +53,7 @@
         },
         mounted(){
             this.$nextTick(function () {
+                window.Promise = window.Promise || require('es6-promise');
                 $('#background').fullpage({
                     verticalCentered: false,
 

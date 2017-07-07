@@ -4,9 +4,11 @@ import Vue from 'vue'
 
 // 引用ui组件 bootstrap-vue
 import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 
 // 引用ui组件 iview
 import iView from 'iview'
+Vue.use(iView)
 
 // 引用App主入口
 import App from 'components/App.vue'
@@ -27,8 +29,10 @@ import 'iview/dist/styles/iview.css'
 // 引入fonts
 import 'common/fonts/font-awesome/css/font-awesome.css'
 
-Vue.use(BootstrapVue)
-Vue.use(iView)
+// passive默认设置为true
+import 'default-passive-events/default-passive-events.js'
+
+// import 'animate.css'
 
 new Vue({
     el: '#app',
