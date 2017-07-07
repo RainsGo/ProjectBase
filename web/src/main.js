@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// https://trakt.tv/
 import Vue from 'vue'
 
 // 引用ui组件 bootstrap-vue
